@@ -1,0 +1,38 @@
+﻿@model IEnumerable<StudentSystem.Models.Group>
+
+@{
+    ViewBag.Title = "Qruplar";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewBag.GroupsActive = "active";
+}
+@if (TempData["SuccessDelete"] != null)
+{
+    <div class="alert alert-danger">@TempData["SuccessDelete"]</div>
+}
+<h2>Qruplar</h2>
+
+<p>
+    @Html.ActionLink("Yeni Qrup", "Create", "", new { @class = "btn btn-primary" })
+</p>
+<table class="table table-striped">
+    <tr>
+        <th>
+            Qrup Adı
+        </th>
+        <th>Əməliyyatlar</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.GroupName)
+            </td>
+            <td>
+                @Html.ActionLink("Düzəliş", "edit", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
+                @Html.ActionLink("Sil", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<StudentSystem.Models.Anouncements>
+@{
+    ViewBag.Title = "Elanlar";
+    ViewBag.AnouncementActive = "active";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .date{
+        position:absolute;
+        top:1px;
+        right:1px;
+    }
+    .new{
+        position:absolute;
+        top:1px;
+        left:1px;
+    }
+</style>
+<h2>Elanlar</h2>
+@if (Model.Count() == 0)
+{
+    <div class="alert alert-info">Elan yoxdur.</div>
+}
+else
+{
+    <ul class="list-unstyled">
+        @foreach (var item in Model)
+        {
+        <li class="media mt-4" style="border:1px solid #6c757d; border-radius:10px; padding:25px;position:relative">
+            @if (DateTime.Now.ToShortDateString() == item.AnounceDate.ToShortDateString()) {<span class="badge badge-success new">Yeni</span>}
+            <i class="fas fa-scroll" style="font-size:1.5em"></i> &nbsp; &nbsp;
+            <div class="media-body">
+                <h5 class="mt-0 mb-1" style="display:inline-block;"> @item.AnounceName</h5>
+                <span class="badge badge-secondary date">@item.AnounceDate.ToShortDateString()</span><br />
+                @item.AnounceDescription
+            </div>
+        </li>
+
+        }
+    </ul>
+}

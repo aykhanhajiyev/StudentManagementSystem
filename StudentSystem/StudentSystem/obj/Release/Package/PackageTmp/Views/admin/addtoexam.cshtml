@@ -1,0 +1,47 @@
+﻿@model IEnumerable<StudentSystem.Identity.ApplicationUser>
+@{
+    ViewBag.Title = "İmtahan nəticələri";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h3>İmtahan nəticələri əlavə et (@ViewBag.Exam.ImtahanAdi)</h3>
+<h4>@ViewBag.Groupname</h4>
+@using (Html.BeginForm("addtoexam", "admin", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <input type="hidden" value="@ViewBag.Exam.Id" name="ExamId" />
+    <label>Imtahan və davamiyyət tarixi:</label>
+    <input type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="form-control w-25" name="Tarix"/>
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>Qrup adı</th>
+                <th>Ad</th>
+                <th>Soyad</th>
+                <th width="170">Düzgün sual sayı</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@ViewBag.Groupname <input type="hidden" value="@ViewBag.Groupname" name="QrupAdi" /></td>
+                    <td>@user.Name <input type="hidden" value="@user.Name" name="Ad" /></td>
+                    <td>@user.Surname <input type="hidden" value="@user.Surname" name="Soyad" /></td>
+                    <td>
+                        <input type="number" class="form-control w-75" style="display:inline-block;" name="DuzgunSualSayi" id="duzgunsualsayi_@user.UserName" required /> <span>/@ViewBag.Exam.CemiSualSayi</span>
+                        <br /><input type="checkbox" onclick="makereadonly(this,'@user.UserName')" /> İştirak etməyib
+                        <input type="hidden" value="@user.Sinif" name="Sinif" />
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="form-group">
+        <label class="text-danger font-weight-bold">Davamiyyət əlavə edilsin?</label>
+        <input type="radio" name="flag" value="True" class="form-group"/><b>Hə</b>
+        <input type="radio" name="flag" value="False" class="form-group" checked/><b>Yox</b>
+    </div>
+    <button type="submit" class="btn btn-primary float-right mb-5">Əlavə et</button>
+}

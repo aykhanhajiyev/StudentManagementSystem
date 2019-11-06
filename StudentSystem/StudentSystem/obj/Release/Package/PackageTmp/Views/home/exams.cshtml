@@ -1,0 +1,80 @@
+﻿@model IEnumerable<StudentSystem.Models.ExamUserResult>
+@{
+    ViewBag.Title = "İmtahan nəticələri";
+    ViewBag.ResultsActive = "active";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (User.Identity.IsAuthenticated)
+{
+    if (ViewBag.HighScores != null)
+    {
+    <div class="alert alert-success">
+        <ul style="list-style-type:none;padding:0;">
+            @foreach (var item in ViewBag.HighScores)
+            {
+            <li>
+                <i class="fas fa-trophy" style="font-size:1.1em"></i>
+                <b>@item.ImtahanAdi</b> adlı imtahanda ən yüksək nəticə <b>@item.Faiz %</b> göstərici ilə <b>@item.Ad @item.Soyad</b> oldu.
+            </li>
+            }
+        </ul>
+    </div>
+    }
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+            İmtahan nəticələri
+        </div>
+        <div class="card-body w-100">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Nəticə</th>
+                            <th>Faiz</th>
+                            <th>İmtahanın adı</th>
+                            <th>Tarix</th>
+                            <th>Kateqoriya</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Count() == 0)
+                        {
+                            <tr><td colspan="5" align="center">Məlumat tapılmadı</td></tr>
+                        }
+                        @foreach (var result in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @if (result.DuzgunSualSayi == -1)
+                                    {<span class="badge badge-danger">İştirak etməyib</span> }
+                                    else
+                                    {<span>@result.DuzgunSualSayi / @result.CemiSualSayi</span>}
+                            </td>
+                            <td>@if (result.Faiz != -1)
+                            {<span>@result.Faiz %</span>}</td>
+                            <td>@result.ImtahanAdi</td>
+                            <td>@result.Tarix.ToShortDateString()</td>
+                            <td>
+                                @if (result.Kateqoriya == "Əsas")
+                                {
+                                    <span class="badge badge-info" style="font-size:0.9em">@result.Kateqoriya</span>
+                                }
+                                else if (result.Kateqoriya == "Əlavə")
+                                {
+                                    <span class="badge badge-danger" style="font-size:0.9em">@result.Kateqoriya</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        @if (ViewBag.UpdateDate != null)
+        {
+            <div class="card-footer small text-muted"><b>@ViewBag.UpdateDate.Tarix.ToShortDateString()</b> tarixində yenilənib.</div>
+        }
+    </div>
+
+}

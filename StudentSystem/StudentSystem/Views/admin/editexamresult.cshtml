@@ -1,0 +1,44 @@
+﻿@model StudentSystem.Models.ExamUserResult
+
+@{
+    ViewBag.Title = "Düzəliş imtahan nəticəsi";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+@using (Html.BeginForm("editexamresult", "admin", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Düzəliş İmtahan nəticəsi</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Düzgün sual sayı</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DuzgunSualSayi, new { htmlAttributes = new { @class = "form-control" } })
+            <small>Əgər iştirak etməyibsə, -1 yazmağınız kifayətdir.</small>
+            @Html.ValidationMessageFor(model => model.DuzgunSualSayi, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2">Cəmi sual sayı</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.CemiSualSayi, new { htmlAttributes = new { @class = "form-control", @readonly="readonly"} })
+            @Html.ValidationMessageFor(model => model.CemiSualSayi, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Dəyiş" class="btn btn-primary" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Geri qayıt", "examresult",new {groupname=Model.QrupAdi },new {@class="btn btn-sm btn-danger"})
+</div>

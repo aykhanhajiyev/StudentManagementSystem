@@ -1,0 +1,97 @@
+﻿@model IEnumerable<StudentSystem.Models.Attendances>
+@{
+                /**/
+
+                ViewBag.Title = "Attendances";
+                ViewBag.AttendancesActive = "active";
+                Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h2>Davamiyyət</h2>
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+@if (TempData["SuccessEdit"] != null)
+{
+    <div class="alert alert-success"><b>@TempData["SuccessEdit"]</b> davamiyyəti dəyişildi.</div>
+}
+@if (TempData["Successdelete"] != null)
+{
+    <div class="alert alert-success"><b>@TempData["Successdelete"]</b> davamiyyəti silindi.</div>
+
+}
+<table id="dtBasicExample" class="table table-striped table-bordered mt-3" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+            <th class="th-sm">
+                Qrup adı
+            </th>
+            <th class="th-sm">
+                Ad
+            </th>
+            <th class="th-sm">
+                Soyad
+            </th>
+            <th class="th-sm">
+                Tarix
+            </th>
+            <th class="th-sm">
+                Davamiyyət
+            </th>
+            <th width="5%">
+                Əməliyyatlar
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="6" align="center">Məlumat tapılmadı</td>
+            </tr>
+        }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.GroupName</td>
+                <td>@item.Ad</td>
+                <td>@item.Soyad</td>
+                <td>@item.Tarix</td>
+                <td>
+                    @if (item.IsJoin)
+                    {<span class="badge badge-success">İştirak edib</span> }
+                    else
+                    {<span class="badge badge-danger">İştirak etməyib</span>                }
+                </td>
+                <td>
+                    <button type="button" class="btn btn-info btn-sm mt-1" data-toggle="modal" data-id="@item.Id" data-tarix="@item.Tarix.ToString("yyyy-MM-dd")" data-isjoin="@item.IsJoin" data-target="#editattendance">Düzəliş</button>
+                    <a href="/admin/deleteattendance/@item.Id" class="btn btn-danger btn-sm mt-1">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>
+                Qrup adı
+            </th>
+            <th>
+                Ad
+            </th>
+            <th>
+                Soyad
+            </th>
+            <th>
+                Tarix
+            </th>
+            <th>
+                Davamiyyət
+            </th>
+            <th>Əməliyyatlar</th>
+        </tr>
+    </tfoot>
+</table>
+
+@{ Html.RenderAction("editattendances", "admin");}
+

@@ -1,0 +1,98 @@
+﻿@model IEnumerable<StudentSystem.Models.ExamUserResult>
+
+@{
+    ViewBag.Title = "examresult";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>İmtahan Nəticələri (@ViewBag.GroupName)</h2>
+<a href="/admin/exams" class="btn btn-outline-info btn-sm">Geri qayıt</a>
+@if (TempData["successedit"] != null)
+{
+<div class="alert alert-success mt-2">@TempData["successedit"]</div>
+}
+<table id="dtBasicExample" class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+            <th class="th-sm">
+                Ad
+            </th>
+            <th class="th-sm">
+                Soyad
+            </th>
+            <th class="th-sm">
+                Nəticə
+            </th>
+            <th class="th-sm">
+                Faiz
+            </th>
+            <th class="th-sm">
+                İmtahan adı
+            </th>
+            <th class="th-sm">
+                Tarix
+            </th>
+            <th class="th-sm">
+                Kateqoriya
+            </th>
+            <th width="5%">
+                Əməliyyatlar
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="9" align="center">Məlumat tapılmadı</td>
+            </tr>
+        }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Ad</td>
+                <td>@item.Soyad</td>
+                <td>
+                    @if (item.DuzgunSualSayi == -1) {<span class="badge badge-danger">İştirak etməyib</span>}
+                    else { <span>@item.DuzgunSualSayi / @item.CemiSualSayi</span>}
+                </td>
+                <td>@if (item.Faiz !=-1) {<span>@item.Faiz %</span> }</td>
+                <td>@item.ImtahanAdi</td>
+                <td>@item.Tarix.ToShortDateString()</td>
+                <td align="center"><span class="badge badge-secondary" style="font-size:0.9em;">@item.Kateqoriya</span></td>
+                <td>
+                    <a href="/admin/editexamresult/@item.Id" class="btn btn-info btn-sm">Düzəliş</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>
+                Ad
+            </th>
+            <th>
+                Soyad
+            </th>
+            <th>
+                Nəticə
+            </th>
+            <th>
+                Faiz
+            </th>
+            <th>
+                İmtahan adı
+            </th>
+            <th>
+                Tarix
+            </th>
+            <th>
+                Kateqoriya
+            </th>
+            <th width="5%">
+                Əməliyyatlar
+            </th>
+        </tr>
+    </tfoot>
+</table>
+

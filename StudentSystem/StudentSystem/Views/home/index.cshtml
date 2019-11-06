@@ -1,0 +1,51 @@
+﻿@model IEnumerable<StudentSystem.Models.Attendances>
+@{
+    ViewBag.Title = "Davamiyyət";
+    ViewBag.AttendanceActive = "active";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+            Davamiyyət Cədvəli
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Tarix</th>
+                            <th>Davamiyyət</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Count() == 0)
+                        {
+                            <tr><td colspan="2" align="center">Məlumat tapılmadı</td></tr>
+                        }
+                        @foreach (var attend in Model)
+                        {
+                            <tr>
+                                <td>@attend.Tarix</td>
+                                <td>
+                                    @if (attend.IsJoin)
+                                    {<span class="badge badge-success">İştirak edib</span> }
+                                    else
+                                    {
+                                        <span class="badge badge-danger">İştirak etməyib</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        @if (ViewBag.UpdateDate != null)
+        {
+            <div class="card-footer small text-muted"><b>@ViewBag.UpdateDate.Tarix.ToShortDateString()</b> tarixində yenilənib.</div>
+        }
+    </div>
+}

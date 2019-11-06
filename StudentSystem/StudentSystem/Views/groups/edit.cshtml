@@ -1,0 +1,23 @@
+﻿@model StudentSystem.Models.Group
+@{
+    ViewBag.Title = "Qrup Düzəliş";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Qrup Düzəliş</h2>
+@using (Html.BeginForm("edit", "groups", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id);
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Qrup adı</label>
+                @Html.TextBoxFor(model => model.GroupName, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-info">Düzəliş</button>
+    <a href="/groups" class="btn btn-danger">Geri qayıt</a>
+}

@@ -1,0 +1,42 @@
+﻿@model StudentSystem.Models.LoginModel
+@{
+    Layout = null;
+}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Student System">
+    <meta name="author" content="Aykhan Hajiyev">
+    <title>Daxil ol - Chem-edu.az</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link href="~/Content/signin.css" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="~/images/logo.png">
+</head>
+<body class="text-center">
+
+    @using (Html.BeginForm("login", "account", FormMethod.Post, new { @class = "form-signin" }))
+    {
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
+        <img class="mb-4" src="~/images/logo.png" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Daxil ol - Chem-edu.az </h1>
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <label for="username" class="sr-only">İstifadəçi adı</label>
+        @Html.TextBoxFor(i => i.Username, new { @class = "form-control", id = "username", placeholder = "İstifadəçi adı", required = "" })
+        <label for="password" class="sr-only">Şifrə</label>
+        @Html.PasswordFor(i => i.Password, new { @class = "form-control", id = "password", placeholder = "Şifrə", required = "" })
+        <div class="checkbox mb-3 float-left">
+            <input type="checkbox" value="true" name="RememberMe" checked> Xatırla məni
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Daxil ol</button>
+        <p class="mt-5 mb-3 text-muted">&copy; By <a href="http://hajiyevaykhan.tk">Aykhan Hajiyev</a> - @DateTime.Now.Year</p>
+    }
+</body>
+</html>
+

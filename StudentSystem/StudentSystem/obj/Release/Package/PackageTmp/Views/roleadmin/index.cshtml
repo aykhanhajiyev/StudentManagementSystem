@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>
+@{
+    ViewBag.Title = "Roles";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<a href="/roleadmin/create" class="btn btn-primary mt-3">Create a role</a>
+<div class="card">
+    <div class="card-header">
+        Roles
+    </div>
+    <table class="table table-striped">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th></th>
+        </tr>
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="3">There are no any roles</td>
+            </tr>
+        }
+        else
+        {
+            foreach(var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>
+                        <a href="/roleadmin/delete/@item.Id" class="btn btn-sm btn-danger">Delete</a>
+                        <a href="/roleadmin/edit/@item.Id" class="btn btn-sm btn-info">Edit</a>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+</div>

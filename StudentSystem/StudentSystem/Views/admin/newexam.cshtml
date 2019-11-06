@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "Yeni Imtahan";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@using (Html.BeginForm("newexam", "admin", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-md-6">
+            <label>İmtahan adı</label>
+            <input type="text" required class="form-control" name="ImtahanAdi" />
+        </div>
+        <div class="col-md-6">
+            <label>Tarix</label>
+            <input type="date" required class="form-control" name="Tarix" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+        </div>
+        <div class="col-md-6">
+            <label>Kateqoriya</label>
+            <select name="Kateqoriya" class="form-control">
+                <option>Əsas</option>
+                <option>Əlavə</option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label>Sual sayı</label>
+            <input type="number" required class="form-control" name="CemiSualSayi" />
+        </div>
+    </div>
+    <a href="/admin/exams" class="btn btn-outline-info mt-3">Geri qayıt</a>
+    <button type="submit" class="btn btn-primary mt-3 float-right">Yarat</button>
+}
+

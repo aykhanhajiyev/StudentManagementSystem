@@ -1,0 +1,29 @@
+﻿@model StudentSystem.Identity.ApplicationUser
+@{
+    ViewBag.Title = "Tənzimləmələr";
+    ViewBag.SettingsActive = "active";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-md-6">
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-info">@TempData["Success"]</div>
+    }
+        <h2>Tənzimləmələr</h2>
+        <p>Siz buradan məlumatlarınıza düzəliş edə bilərsiniz. Əgər hər hansı bir məlumat yoxdursa zəhmət olmasa daxil edəsiniz.</p>
+        @using (Html.BeginForm("settings", "account", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <label>Valideynin Adı Soyadı:</label>
+                @Html.TextBoxFor(i => i.Parent, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Valideynin Əlaqə Nömrəsi:</label>
+                @Html.TextBoxFor(i => i.PhoneNumber, new { @class = "form-control" })
+            </div>
+            <button type="submit" class="btn btn-info float-right"> Yadda saxla</button>
+        }</div>
+    </div>

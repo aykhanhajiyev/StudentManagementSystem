@@ -1,0 +1,10 @@
+﻿.countanounce {
+    position:relative !important;
+    font-size:0.9em !important;
+}
+@media only screen and (max-width:767px){
+    .countanounce{
+        top:0px !important;
+        font-size:0.9em !important;
+    }
+}

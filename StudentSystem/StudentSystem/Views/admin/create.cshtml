@@ -1,0 +1,93 @@
+﻿@model StudentSystem.Models.NewStudent
+@{
+    ViewBag.Title = "New Student";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Yarat</h2>
+@using (Html.BeginForm("create", "admin", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="Name">Ad</label>
+                @Html.TextBoxFor(i => i.Name, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="Surname">Soyad</label>
+                @Html.TextBoxFor(i => i.Surname, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="Username">İstifadəçi adı</label>
+                @Html.TextBoxFor(i => i.Username, new { @class = "form-control", onfocus = "generateusername(this)" })
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="Password">Şifrə</label>
+                @Html.TextBoxFor(i => i.Password, new { @class = "form-control", onfocus = "generatepassword(this)" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="groupname">Qrup adı</label>
+                <select class="form-control" name="group">
+                    @foreach (var groupname in ViewBag.GroupNames)
+                    {
+                        <option>@groupname.GroupName</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="groupname">2ci Qrup adı</label>
+                <select class="form-control" name="group1">
+                    @foreach (var groupname in ViewBag.GroupNames)
+                    {
+                        <option>@groupname.GroupName</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+   <div class="row">
+       <div class="col-md-4">
+           <div class="form-group">
+               <label for="sinf">Sinif</label>
+               <select class="form-control" name="Sinif">
+                   <option>7</option>
+                   <option>8</option>
+                   <option>9</option>
+                   <option>10</option>
+                   <option>11</option>
+               </select>
+           </div>
+       </div>
+       <div class="col-md-4">
+           <div class="form-group">
+               <label for="parent">Valideyn Ad Soyad</label>
+               @Html.TextBoxFor(i => i.Parent, new { @class = "form-control" })
+           </div>
+       </div>
+       <div class="col-md-4">
+           <div class="form-group">
+               <label for="phonenumber">Əlaqə nömrəsi</label>
+               @Html.TextBoxFor(i => i.PhoneNumber, new { @class = "form-control" })
+           </div>
+       </div>
+   </div>
+    <button type="submit" class="btn btn-primary mb-5">Yarat</button>
+    <a href="/admin/index" class="btn btn-danger mb-5">Geri qayıt</a>
+}
+

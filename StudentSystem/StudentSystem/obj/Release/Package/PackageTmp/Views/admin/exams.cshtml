@@ -1,0 +1,99 @@
+﻿@model IEnumerable<StudentSystem.Models.Exam>
+@{
+    ViewBag.Title = "İmtahanlar";
+    ViewBag.ExamsActive = "active";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h2>İmtahanlar</h2>
+@using (Html.BeginForm("examresult", "admin", FormMethod.Get))
+{
+    <select name="groupname" class="form-control mb-2" style="width:270px;">
+        <option>-</option>
+        @foreach (var group in ViewBag.GroupNames)
+        {
+            <option>@group.GroupName</option>
+        }
+    </select>
+    <a href="/admin/newexam" class="btn btn-info mb-3">Yeni imtahan</a>
+    <button type="submit" class="btn btn-success mb-3">İmtahan nəticələri</button>
+}
+@if (TempData["successdelete"] != null)
+{
+    <div class="alert alert-info">@TempData["successdelete"] </div>
+}
+<table id="dtBasicExample" class="table table-striped table-bordered" cellspacing="0">
+    <thead>
+        <tr>
+            <th class="th-sm">
+                İmtahan adı
+            </th>
+            <th class="th-sm">
+                Tarix
+            </th>
+            <th class="th-sm">
+                Kateqoriya
+            </th>
+            <th class="th-sm">
+                Sual sayı
+            </th>
+            <th>Qrup</th>
+            <th width="5%">
+                Əməliyyatlar
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="6" align="center">Məlumat tapılmadı</td>
+            </tr>
+        }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ImtahanAdi</td>
+                <td>@item.Tarix.ToShortDateString()</td>
+                <td>@item.Kateqoriya</td>
+                <td>@item.CemiSualSayi</td>
+                @using (Html.BeginForm("addtoexam", "admin", new { id = item.Id }, FormMethod.Get))
+                {
+                    <td>
+                        <select name="groupname" class="form-control">
+                            <option>-</option>
+                            @foreach (var groupname in ViewBag.GroupNames)
+                            {
+                                <option>@groupname.GroupName</option>
+                            }
+                        </select>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-info btn-sm">Əlavə et</button>
+                        <a href="/admin/deleteexam/@item.Id" class="btn btn-sm btn-danger">Sil</a>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>
+                İmtahan adı
+            </th>
+            <th>
+                Tarix
+            </th>
+            <th>
+                Kateqoriya
+            </th>
+            <th>
+                Sual sayı
+            </th>
+            <th>Qrup</th>
+            <th width="5%">
+                Əməliyyatlar
+            </th>
+        </tr>
+    </tfoot>
+</table>
+

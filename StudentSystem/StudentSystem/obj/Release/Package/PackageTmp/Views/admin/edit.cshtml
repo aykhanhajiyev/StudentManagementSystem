@@ -1,0 +1,83 @@
+﻿@model StudentSystem.Identity.ApplicationUser
+@{
+    ViewBag.Title = "Edit Student";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Düzəliş</h2>
+<hr />
+@using (Html.BeginForm("edit", "admin", new { id = Model.Id }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>İstifadəçi adı: </label>
+                    @Html.TextBoxFor(i => i.UserName, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Ad: </label>
+                    @Html.TextBoxFor(i => i.Name, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Soyad: </label>
+                    @Html.TextBoxFor(i => i.Surname, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Qrup adı: </label>
+                    <select class="form-control" name="group">
+                        @foreach (var groupname in ViewBag.GroupNames)
+                        {
+                            <option selected='@(Model.Group==groupname.GroupName)'>@groupname.GroupName</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>2ci Qrup adı: </label>
+                    <select class="form-control" name="group1">
+                        @foreach (var groupname in ViewBag.GroupNames)
+                        {
+                            <option selected='@(Model.Group1==groupname.GroupName)'>@groupname.GroupName</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="sinf">Sinif</label>
+                    <select class="form-control" name="Sinif">
+                        <option selected='@(Model.Sinif == "7")'>7</option>
+                        <option selected='@(Model.Sinif == "8")'>8</option>
+                        <option selected='@(Model.Sinif == "9")'>9</option>
+                        <option selected='@(Model.Sinif == "10")'>10</option>
+                        <option selected='@(Model.Sinif == "11")'>11</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Valideyn: </label>
+                    @Html.TextBoxFor(i => i.Parent, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Əlaqə nömrəsi: </label>
+                    @Html.TextBoxFor(i => i.PhoneNumber, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Yadda saxla</button>
+        <a class="btn btn-danger" href="/admin/index">Geri qayıt</a>
+    </div>
+}

@@ -1,0 +1,17 @@
+﻿@model string
+@{
+    ViewBag.Title = "Create a role";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Create a role</h2>
+@using (Html.BeginForm("create","roleadmin",FormMethod.Post))
+{
+    @Html.ValidationSummary("", new { @class="text-danger"})
+    <div class="form-group">
+        <label>Rol name</label>
+        <input type="text" name="name" class="form-control" value="@Model" />
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+}
+

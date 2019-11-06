@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "İnkişaf";
+    ViewBag.ProgressActive = "active";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Əsas imtahanlar üzrə inkişaf</h2>
+<!-- Area Chart Example-->
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-chart-area"></i>
+        İmtahan nəticələrinin inkişafı
+    </div>
+    <div class="card-body">
+        <canvas id="myAreaChart" width="100%" height="30"></canvas>
+    </div>
+    @if (ViewBag.UpdateDate != null)
+    {
+        <div class="card-footer small text-muted">Yenilənib <b>@ViewBag.UpdateDate.Tarix.ToShortDateString()</b> tarixində</div>
+    }
+</div>
+
+<h2>Əlavə imtahanlar üzrə inkişaf</h2>
+<!-- Area Chart Example-->
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-chart-area"></i>
+        İmtahan nəticələrinin inkişafı
+    </div>
+    <div class="card-body">
+        <canvas id="myAreaChart1" width="100%" height="30"></canvas>
+    </div>
+    @if (ViewBag.UpdateDateElave != null)
+    {
+        <div class="card-footer small text-muted">Yenilənib <b>@ViewBag.UpdateDateElave.Tarix.ToShortDateString()</b> tarixində</div>
+    }
+</div>
+
+

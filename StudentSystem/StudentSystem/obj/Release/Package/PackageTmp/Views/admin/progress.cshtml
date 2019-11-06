@@ -1,0 +1,109 @@
+﻿@{
+    ViewBag.Title = "İnkişaf";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Chem-edu.az Abituriyentlərin Dərsə davamiyyətini, imtahan nəticələrini özündə cəmləşdirən bir sistemdir.">
+    <meta name="author" content="Aykhan Hajiyev">
+
+    <title>@ViewBag.Title</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="~/AdminPanel/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Page level plugin CSS-->
+    <link href="~/AdminPanel/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="~/AdminPanel/css/sb-admin.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="~/images/logo.png">
+
+</head>
+
+<body id="page-top">
+    <div class="container">
+        <h4 class="mt-3">@ViewBag.UserAdSoyad inkişaf cədvəli</h4>
+        <input type="hidden" id="userid" value="@ViewBag.Userid" />
+        <a href="/admin" class="btn btn-info">Geri qayıt</a>
+        <div id="wrapper">
+            <div id="content-wrapper">
+                <div class="container-fluid">
+                    <h2>Əsas imtahanlar üzrə inkişaf</h2>
+                    <!-- Area Chart Example-->
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <i class="fas fa-chart-area"></i>
+                            İmtahan nəticələrinin inkişafı
+                        </div>
+                        <div class="card-body">
+                            <canvas id="myAreaChartAdmin" width="100%" height="30"></canvas>
+                        </div>
+                    </div>
+
+                    <h2>Əlavə imtahanlar üzrə inkişaf</h2>
+                    <!-- Area Chart Example-->
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <i class="fas fa-chart-area"></i>
+                            İmtahan nəticələrinin inkişafı
+                        </div>
+                        <div class="card-body">
+                            <canvas id="myAreaChartAdmin1" width="100%" height="30"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+                <!-- Sticky Footer -->
+                <footer class="sticky-footer">
+                    <div class="container my-auto">
+                        <div class="text-center my-auto">
+                            <span>Əlaqə nömrəsi: <a href="tel:+994772717100">077-271-71-00</a></span><br />
+                        </div>
+                    </div>
+
+                </footer>
+
+            </div>
+            <!-- /.content-wrapper -->
+
+        </div>
+        <!-- /#wrapper -->
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/AdminPanel/vendor/jquery/jquery.min.js"></script>
+    <script src="~/AdminPanel/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="~/AdminPanel/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Page level plugin JavaScript-->
+    <script src="~/AdminPanel/vendor/chart.js/Chart.min.js"></script>
+    <script src="~/AdminPanel/vendor/datatables/jquery.dataTables.js"></script>
+    <script src="~/AdminPanel/vendor/datatables/dataTables.bootstrap4.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="~/AdminPanel/js/sb-admin.min.js"></script>
+
+    <!-- Demo scripts for this page-->
+    <script src="~/AdminPanel/js/demo/datatables-demo.js"></script>
+    @if (ViewBag.userid != null)
+    {
+        <script src="~/AdminPanel/js/demo/chart-area-admin.js"></script>
+    }
+</body>
+
+</html>
+

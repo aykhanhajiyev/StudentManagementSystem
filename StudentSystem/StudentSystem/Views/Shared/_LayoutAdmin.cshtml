@@ -1,0 +1,141 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Student System By Aykhan Hajiyev">
+    <meta name="author" content="Aykhan Hajiyev">
+    <title>@ViewBag.Title</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/datatables.min.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="~/Content/adminlayout.css" rel="stylesheet" />
+
+    <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet" />
+    <style>
+        #attend {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="/admin">
+            <img src="~/images/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+            Chem-edu.az | Admin Panel
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item @ViewBag.StudentsActive">
+                    <a class="nav-link" href="/admin/index">Tələbələr</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @ViewBag.GroupsActive" href="/groups">Qruplar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @ViewBag.AttendancesActive" href="/admin/attendances">Davamiyyət</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @ViewBag.ExamsActive" href="/admin/exams">İmtahanlar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @ViewBag.AnouncementsActive" href="/admin/anouncements">Elanlar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/account/logout">Çıxış</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main role="main" class="container mt-2">
+        @RenderBody()
+    </main>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/datatables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#dtBasicExample').DataTable();
+            $('.dataTables_length').addClass('bs-select');
+        });
+        function makereadonly(e, id) {
+            if (e.checked == true) {
+                $("#duzgunsualsayi_" + id).attr("readonly", "readonly");
+                $("#duzgunsualsayi_" + id).val("-1");
+            }
+            else if (e.checked == false) {
+                $("#duzgunsualsayi_" + id).removeAttr("readonly");
+                $("#duzgunsualsayi_" + id).val("");
+            }
+        }
+        function generateusername(e) {
+            var name = $("#Name").val();
+            var surname = $("#Surname").val();
+            $(e).val(name.toLowerCase().trim() + "_" + surname.toLowerCase().trim());
+        }
+        function generatepassword(e) {
+            var name = $("#Name").val();
+            var surname = $("#Surname").val();
+            $(e).val(name.toLowerCase().trim() + "123");
+        }
+
+    </script>
+    <script>
+        $('#exampleModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var id = button.data('id'); // Extract info from data-* attributes
+            var name = button.data('name'); // Extract info from data-* attributes
+            var surname = button.data('surname'); // Extract info from data-* attributes
+            var modal = $(this);
+            modal.find('.modal-title').text("Şifrə yenilənməsi (" + name + " " + surname + ")");
+            modal.find('.modal-body #id').val(id);
+        });
+
+        $('#editanounce').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var id = button.data('id');
+            var name = button.data('anouncename');
+            var date = button.data('anouncedate');
+            var desc = button.data('anouncedescription');
+            var sharewith = button.data('sharewith');
+
+            // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this);
+            modal.find('.form-group #Id').val(id);
+            modal.find('#AnounceName').val(name);
+            modal.find('#AnounceDate').val(date);
+            console.log(date);
+            modal.find('#AnounceDescription').val(desc);
+            modal.find('#ShareWith').val(sharewith);
+        });
+        $('#editattendance').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var id = button.data('id');
+            var isjoin = button.data('isjoin');
+            var tarix = button.data('tarix');
+
+
+            // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this);
+            modal.find('#Id').val(id);
+            modal.find("#Tarix").val(tarix);
+            modal.find("#IsJoin").val(isjoin.toLowerCase());
+        })
+    </script>
+    @if (ViewBag.UserId != null)
+    {
+        <script src="~/AdminPanel/js/demo/chart-area-admin.js"></script>
+    }
+</body>
+</html>

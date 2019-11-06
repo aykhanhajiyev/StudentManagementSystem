@@ -1,0 +1,125 @@
+﻿@model IEnumerable<StudentSystem.Identity.ApplicationUser>
+@{
+                /**/
+
+                ViewBag.Title = "Admin Panel";
+                ViewBag.StudentsActive = "active";
+                Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h2>Tələbələr</h2>
+<hr />
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+@if (TempData["SuccessDelete"] != null)
+{
+    <div class="alert alert-danger">@TempData["SuccessDelete"]</div>
+}
+@if (TempData["successreset"] != null)
+{
+    <div class="alert alert-success"><b>@TempData["successreset"]</b> şifrəsi dəyişildi.</div>
+}
+<a class="btn btn-primary text-white mb-3" href="/admin/create">Yarat</a>
+<table id="dtBasicExample" class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+            <th class="th-sm">
+                Qrup adı
+            </th>
+            <th class="th-sm">
+                Qrup adı 2
+            </th>
+            <th class="th-sm">
+                Sinif
+            </th>
+            <th class="th-sm">
+                Ad
+            </th>
+            <th class="th-sm">
+                Soyad
+            </th>
+            <th class="th-sm">
+                İstifadəçi adı
+            </th>
+            <th width="22%">Əməliyyatlar</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="7" align="center">
+                    Məlumat tapılmadı
+                </td>
+            </tr>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+    <tr>
+        <td>@item.Group</td>
+        <td>@item.Group1</td>
+        <td>@item.Sinif</td>
+        <td>@item.Name</td>
+        <td>@item.Surname</td>
+        <td>@item.UserName</td>
+        <td align="center">
+            <a class="btn btn-danger btn-sm mt-1" href="/admin/delete/@item.Id">Sil</a>
+            <a class="btn btn-info btn-sm mt-1" href="/admin/edit/@item.Id">Düzəliş</a>
+            <button type="button" class="btn btn-warning btn-sm mt-1" data-toggle="modal" data-id="@item.Id" data-name="@item.Name" data-surname="@item.Surname" data-target="#exampleModal">Şifrə yenilə</button>
+            <a class="btn btn-success btn-sm mt-1" href="/admin/progress/@item.Id" target="_blank">İnkişaf</a>
+
+        </td>
+    </tr>
+            }
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>
+                Qrup adı
+            </th>
+            <th>
+                Qrup adı 2
+            </th>
+            <th>Sinif</th>
+            <th>
+                Ad
+            </th>
+            <th>
+                Soyad
+            </th>
+            <th>
+                İstifadəçi adı
+            </th>
+
+            <th>Əməliyyatlar</th>
+        </tr>
+    </tfoot>
+</table>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/admin/resetpassword" method="post">
+                <div class="modal-body">
+                    <input type="hidden" class="form-control" id="id" name="id">
+                    <div class="form-group">
+                        <label for="newpassword" class="col-form-label">Yeni şifrə:</label>
+                        <input type="text" class="form-control" id="newpassword" name="newpassword" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Yenilə</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
